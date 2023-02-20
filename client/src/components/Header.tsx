@@ -3,36 +3,17 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { Avatar, Badge, Button, CardHeader, IconButton } from '@mui/material';
-import { House, Mail, MailOutline, NotificationsOutlined } from '@mui/icons-material';
+import { Brightness1Outlined, Brightness7, DarkModeOutlined, House, Mail, MailOutline, NotificationsOutlined } from '@mui/icons-material';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import profile from '../assets/profile.jpg'
+import { useTheme } from '@mui/material/styles';
 
 const navItems = ['Maintanance', 'People', 'Properties',"Invoices"];
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+const Header =()=> {
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+const theme = useTheme()
   return (
       <AppBar elevation={0} position="sticky">
           <Toolbar  sx={{
@@ -78,7 +59,10 @@ function ResponsiveAppBar() {
               <Badge badgeContent={3} color={"secondary"}>
                 <NotificationsOutlined />
               </Badge>
-            </IconButton>
+                  </IconButton>
+                  <IconButton color='inherit'>
+                      {theme.palette.mode === 'dark'?<DarkModeOutlined />:<Brightness7/>}
+                  </IconButton>
           </Box>
          
             <CardHeader
@@ -92,4 +76,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Header;
