@@ -1,12 +1,10 @@
 import {
   ArrowForward,
-  Dangerous,
-  Report,
   ReportOutlined,
-  Warning,
+
 } from "@mui/icons-material";
 import {
-  Avatar,
+ 
   Card,
   CardContent,
   CardHeader,
@@ -14,10 +12,11 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import { createTheme, Stack } from "@mui/system";
-import { green } from "@mui/material/colors";
+import {  Stack } from "@mui/system";
+
 
 import React from "react";
+import BarChart from "./BarChart";
 
 export interface ICardProps {
   title: string;
@@ -39,8 +38,8 @@ const CardItem = ({ title, icon, color, works }: ICardProps) => {
         }
       />
       <CardContent>
-        <Stack>
-          <Box>
+              <Stack display={"flex"} flexDirection={"row"}>
+          <Box flexGrow={3}>
             <Typography fontWeight="bold">21 Works</Typography>
             <Typography color="InactiveCaptionText">
               <Box component="span" color={color}>
@@ -48,7 +47,10 @@ const CardItem = ({ title, icon, color, works }: ICardProps) => {
               </Box>{" "}
               from last month
             </Typography>
-          </Box>
+                  </Box>
+                  <Box sx={{width:"40%",height:"100px"}}>
+                      <BarChart/>
+                  </Box>
         </Stack>
       </CardContent>
     </Card>

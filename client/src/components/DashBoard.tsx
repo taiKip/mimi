@@ -17,11 +17,10 @@ import {
   Typography,
   Avatar,
   useTheme,
+  Container,
 } from "@mui/material";
 import {
   Add,
-  BarChart,
-  CheckBox,
   CheckBoxOutlined,
   ConstructionOutlined,
   Help,
@@ -31,6 +30,7 @@ import {
 } from "@mui/icons-material";
 import { Stack } from "@mui/system";
 import CardItem, { ICardProps } from "./CardItem";
+import BarChart from "./BarChart";
 const tableItems = [
   {
     firstName: "John",
@@ -71,7 +71,7 @@ const cardItems = [
   },
   {
     color: "purple",
-    icon: <ConstructionOutlined color="info" />,
+    icon: <ConstructionOutlined color="secondary" />,
     title: "Normal",
     works: "-49%",
   },
@@ -114,7 +114,7 @@ const Dashboard = () => {
     setSelected(newSelected);
   };
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
-const theme = useTheme()
+  const theme = useTheme();
   return (
     <Box>
       <Toolbar />
@@ -154,7 +154,11 @@ const theme = useTheme()
           </FormControl>
         </Stack>
         <Stack direction="row" spacing={2} marginLeft={"auto"}>
-          <Button variant={theme.palette.mode==="dark"?"contained":"outlined"} startIcon={<Upload />} color="inherit">
+          <Button
+            variant={theme.palette.mode === "dark" ? "contained" : "outlined"}
+            startIcon={<Upload />}
+            color="inherit"
+          >
             Export
           </Button>
           <Button variant="contained" startIcon={<Add />} color="inherit">
@@ -162,23 +166,29 @@ const theme = useTheme()
           </Button>
         </Stack>
       </Box>
-          <Box marginTop={3} display="flex">
-              
-              <CardHeader
-                  color="primary"
-          sx={{
-            padding: 0,
-          }}
-          title="Maintenance"
-          subheader="View your newest works submited by the residents"
-        />
+      <Box marginTop={3} display="flex" flexDirection={"column"}>
+        <Stack>
+          <Typography
+            color={theme.palette.mode === "dark" ? "primary" : "inherit"}
+            variant="h4"
+          >
+            Maintenance
+          </Typography>
+          <Typography variant="subtitle1" color="GrayText">
+            View your newest works submited by the residents
+          </Typography>
+        </Stack>
         <Stack justifyContent={"center"} marginLeft={"auto"}>
-          <Button variant="outlined" startIcon={<Help />} color="inherit">
+          <Button
+            variant="outlined"
+            startIcon={<Help />}
+            color={theme.palette.mode === "dark" ? "primary" : "inherit"}
+          >
             Contact help
           </Button>
         </Stack>
       </Box>
-      <Box marginTop={3}>
+      <Box marginTop={2}>
         <Stack direction="row" spacing={3}>
           {cardItems.map((item) => (
             <CardItem
@@ -190,13 +200,12 @@ const theme = useTheme()
           ))}
         </Stack>
       </Box>
-          <Box display={"block "}>
-        <TableContainer aria-label="table header" >
+      <Box display={"flex"}>
+        <TableContainer aria-label="table" sx={{ flexGrow: 4 }}>
           <TableHead>
             <TableRow>
               <TableCell>
-                              <CardHeader
-                                  
+                <CardHeader
                   title="Works Required"
                   subheader={
                     <Box
@@ -255,36 +264,53 @@ const theme = useTheme()
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {tableItems.map((complaint) => (
-              <TableRow sx={{ padding: 0 }}>
-                <TableCell
-                  sx={{ display: "flex", alignItems: "center", gap: 2 }}
-                >
-                  {complaint.severity === "Emergency" ? (
-                    <ReportOutlined color="warning" />
-                  ) : (
-                    <ConstructionOutlined color="secondary" />
-                  )}
-                  <Box>
-                    <Typography component={"h4"} fontWeight="bold">
-                      {complaint.repairRequest}
+          <Container sx={{ display: "flex", flexDirection: "row" }}>
+            <TableBody>
+              {tableItems.map((complaint) => (
+                <TableRow sx={{ padding: 0 }}>
+                  <TableCell
+                    sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                  >
+                    {complaint.severity === "Emergency" ? (
+                      <ReportOutlined color="warning" />
+                    ) : (
+                      <ConstructionOutlined color="secondary" />
+                    )}
+                    <Box>
+                      <Typography variant="subtitle2" color="GrayText">
+                        {complaint.complaintId}
+                      </Typography>
+                      <Typography component={"h4"} fontWeight="bold">
+                        {complaint.repairRequest}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Typography display={"flex"} alignItems="center" gap={2}>
+                      <Avatar src={profile} />
+                      {complaint.firstName + " " + complaint.lastName}
                     </Typography>
-                    <Typography>{complaint.complaintId}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Typography display={"flex"} alignItems="center" gap={2}>
-                    <Avatar src={profile} />
-                    {complaint.firstName + " " + complaint.lastName}
-                  </Typography>
-                </TableCell>
-                <TableCell>{"RTK palvelut"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  </TableCell>
+                  <TableCell>{"RTK palvelut"}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Container>
         </TableContainer>
-        <BarChart />
+        <Container sx={{ width: "450px", height: "300px" }}>
+          <TableHead>
+            <CardHeader
+              title="Avg. Complaint"
+              subheader={
+                <Box component={"span"} display="flex" alignItems={"center"}>
+                  Average complaint from residents <Info fontSize="small" />
+                </Box>
+              }
+            />
+          </TableHead>
+
+          <BarChart />
+        </Container>
       </Box>
     </Box>
   );

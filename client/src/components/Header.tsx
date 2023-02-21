@@ -3,17 +3,21 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { Avatar, Badge, Button, CardHeader, IconButton } from '@mui/material';
-import { Brightness1Outlined, Brightness7, DarkModeOutlined, House, Mail, MailOutline, NotificationsOutlined } from '@mui/icons-material';
+import { Brightness1Outlined, Brightness7, Brightness7Outlined, DarkModeOutlined, House, Mail, MailOutline, NotificationsOutlined } from '@mui/icons-material';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import profile from '../assets/profile.jpg'
 import { useTheme } from '@mui/material/styles';
+import { ThemeContext } from '../App';
+
+
 
 const navItems = ['Maintanance', 'People', 'Properties',"Invoices"];
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const Header =()=> {
 
-const theme = useTheme()
+const Header =()=> {
+const colorMode = React.useContext(ThemeContext)
+    const theme = useTheme()
+
   return (
       <AppBar elevation={0} position="sticky">
           <Toolbar  sx={{
@@ -60,8 +64,8 @@ const theme = useTheme()
                 <NotificationsOutlined />
               </Badge>
                   </IconButton>
-                  <IconButton color='inherit'>
-                      {theme.palette.mode === 'dark'?<DarkModeOutlined />:<Brightness7/>}
+                  <IconButton color='inherit' onClick={colorMode.toggleColorMode}>
+                      {theme.palette.mode === 'light'?<DarkModeOutlined />:<Brightness7Outlined/>}
                   </IconButton>
           </Box>
          
