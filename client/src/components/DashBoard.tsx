@@ -4,91 +4,61 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
-import profile from "../assets/profile.jpg";
+
 import {
   Button,
   CardHeader,
-  TableCell,
-  TableContainer,
-  TableHead,
+
   Toolbar,
-  TableRow,
-  TableBody,
+  
   Typography,
-  Avatar,
+ 
   useTheme,
-  Container,
+
+  Card,
+  CardContent,
 } from "@mui/material";
 import {
   Add,
   CheckBoxOutlined,
   ConstructionOutlined,
   Help,
-  Info,
   ReportOutlined,
   Upload,
 } from "@mui/icons-material";
 import { Stack } from "@mui/system";
 import CardItem, { ICardProps } from "./CardItem";
 import BarChart from "./BarChart";
-const tableItems = [
-  {
-    firstName: "John",
-    lastName: "Doe",
-    repairRequest: "Leaky faucet in the bathroom sink",
-    complaintId: 12345,
-    severity: "Normal",
-    image: "../assets/profile.jpg",
-  },
-  {
-    firstName: "Mary",
-    lastName: "Smith",
-    repairRequest: "Clogged drain in the kitchen sink",
-    complaintId: 12346,
-    severity: "Normal",
-  },
-  {
-    firstName: "David",
-    lastName: "Lee",
-    repairRequest: "Broken window in the living room",
-    complaintId: 12347,
-    severity: "Emergency",
-  },
-  {
-    firstName: "Rachel",
-    lastName: "Johnson",
-    repairRequest: "Flickering lights in the bedroom",
-    complaintId: 12348,
-    severity: "Normal",
-  },
-];
+import EnhancedTable from "./Table/EnhancedTable";
+
 const cardItems = [
   {
     color: "#43a047",
     icon: <ReportOutlined color="warning" />,
     title: "Emergency",
+    status: "emergency",
     works: "+21%",
   },
   {
     color: "purple",
     icon: <ConstructionOutlined color="secondary" />,
     title: "Normal",
+    status: "normal",
     works: "-49%",
   },
   {
     color: "#43a047",
     icon: <CheckBoxOutlined color="success" />,
     title: "Fixed Job",
+    status: "fixed",
     works: "-7%",
   },
 ] as ICardProps[];
-const tableRows = ["Complaint", "Residents", "Vendor partner"];
+const labels = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+const data = [15, 13, 23, 15, 22, 16, 7];
+
 const Dashboard = () => {
   const [severity, setSeverity] = useState("");
-  const [member, setMember] = useState("");
-
-  const [city, setCity] = useState("");
-  const [period, setPeriod] = useState("");
 
   const [selected, setSelected] = useState<readonly string[]>([]);
   const handleChange = (event: SelectChangeEvent) => {
@@ -192,125 +162,34 @@ const Dashboard = () => {
         <Stack direction="row" spacing={3}>
           {cardItems.map((item) => (
             <CardItem
+              key={item.title}
               title={item.title}
               icon={item.icon}
               works={item.works}
               color={item.color}
+              status={item.status}
             />
           ))}
         </Stack>
       </Box>
-      <Box display={"flex"}>
-        <TableContainer aria-label="table" sx={{ flexGrow: 4 }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <CardHeader
-                  title="Works Required"
-                  subheader={
-                    <Box
-                      component={"span"}
-                      display="flex"
-                      alignItems={"center"}
-                    >
-                      Several works that needs to be done{" "}
-                      <Info fontSize="small" />
-                    </Box>
-                  }
-                />
-              </TableCell>
-              <TableCell />
-              <TableCell>
-                <Stack direction="row" spacing={2} minWidth={300}>
-                  <FormControl fullWidth>
-                    <InputLabel id="city" color="secondary">
-                      City
-                    </InputLabel>
-                    <Select
-                      labelId="city-select"
-                      id="city-select"
-                      value={city}
-                      label="City"
-                      onChange={handleChange}
-                      color="secondary"
-                    >
-                      <MenuItem value={"Turku"}>Turku</MenuItem>
-                      <MenuItem value={"Raisio"}>Raisio</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <FormControl fullWidth>
-                    <InputLabel id="period" color="secondary">
-                      Period
-                    </InputLabel>
-                    <Select
-                      labelId="period-select"
-                      id="period-select"
-                      value={period}
-                      label="Period"
-                      onChange={handleChange}
-                      color="secondary"
-                    >
-                      <MenuItem value={"Normal"}>Monthly</MenuItem>
-                      <MenuItem value={"Emergency"}>Weekly</MenuItem>
-                      <MenuItem value={"Emergency"}>Daily</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Stack>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              {tableRows.map((item) => (
-                <TableCell align="left">{item}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <Container sx={{ display: "flex", flexDirection: "row" }}>
-            <TableBody>
-              {tableItems.map((complaint) => (
-                <TableRow sx={{ padding: 0 }}>
-                  <TableCell
-                    sx={{ display: "flex", alignItems: "center", gap: 2 }}
-                  >
-                    {complaint.severity === "Emergency" ? (
-                      <ReportOutlined color="warning" />
-                    ) : (
-                      <ConstructionOutlined color="secondary" />
-                    )}
-                    <Box>
-                      <Typography variant="subtitle2" color="GrayText">
-                        {complaint.complaintId}
-                      </Typography>
-                      <Typography component={"h4"} fontWeight="bold">
-                        {complaint.repairRequest}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Typography display={"flex"} alignItems="center" gap={2}>
-                      <Avatar src={profile} />
-                      {complaint.firstName + " " + complaint.lastName}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>{"RTK palvelut"}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Container>
-        </TableContainer>
-        <Container sx={{ width: "450px", height: "300px" }}>
-          <TableHead>
-            <CardHeader
-              title="Avg. Complaint"
-              subheader={
-                <Box component={"span"} display="flex" alignItems={"center"}>
-                  Average complaint from residents <Info fontSize="small" />
-                </Box>
-              }
+      <Box display={"flex"} marginTop={3} gap={3} marginBottom={3}>
+        <Card sx={{ flexGrow: 3 }}>
+          <EnhancedTable />
+        </Card>
+        <Card sx={{flexGrow:1}}>
+          <CardHeader
+            title="Avg. Complaint"
+            subheader="Average complaint from residents"
+          />
+                  <CardContent>
+            <BarChart
+              label="Complaint"
+              labels={labels}
+              barData={data}
+              aspectRatio={true}
             />
-          </TableHead>
-
-          <BarChart />
-        </Container>
+          </CardContent>
+        </Card>
       </Box>
     </Box>
   );

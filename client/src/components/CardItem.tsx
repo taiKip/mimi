@@ -1,10 +1,5 @@
+import { ArrowForward, ReportOutlined } from "@mui/icons-material";
 import {
-  ArrowForward,
-  ReportOutlined,
-
-} from "@mui/icons-material";
-import {
- 
   Card,
   CardContent,
   CardHeader,
@@ -12,8 +7,7 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import {  Stack } from "@mui/system";
-
+import { Stack } from "@mui/system";
 
 import React from "react";
 import BarChart from "./BarChart";
@@ -23,10 +17,11 @@ export interface ICardProps {
   icon: React.ReactElement<typeof ReportOutlined>;
   color: string;
   works: string;
+  status: "fixed" | "emergency" | "normal";
 }
 const CardItem = ({ title, icon, color, works }: ICardProps) => {
   return (
-    <Card sx={{width:"100%"}}>
+    <Card sx={{ width: "100%" }}>
       <CardHeader
         sx={{ borderBottom: 1 }}
         avatar={icon}
@@ -38,7 +33,7 @@ const CardItem = ({ title, icon, color, works }: ICardProps) => {
         }
       />
       <CardContent>
-              <Stack display={"flex"} flexDirection={"row"}>
+        <Stack display={"flex"} flexDirection={"row"}>
           <Box flexGrow={3}>
             <Typography fontWeight="bold">21 Works</Typography>
             <Typography color="InactiveCaptionText">
@@ -47,10 +42,14 @@ const CardItem = ({ title, icon, color, works }: ICardProps) => {
               </Box>{" "}
               from last month
             </Typography>
-                  </Box>
-                  <Box sx={{width:"40%",height:"100px"}}>
-                      <BarChart/>
-                  </Box>
+          </Box>
+          <Box sx={{ width: "40%", height: "110px" }}>
+            <BarChart
+              label="Emergency"
+              labels={["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]}
+              barData={[15, 13, 23, 15, 22, 16, 7]}
+            />
+          </Box>
         </Stack>
       </CardContent>
     </Card>

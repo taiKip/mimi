@@ -69,7 +69,9 @@ const colorMode = React.useContext(ThemeContext)
                   </IconButton>
           </Box>
          
-            <CardHeader
+              <CardHeader
+                  sx={{cursor:"pointer"}}
+                 onClick={()=>console.log("john doe")}
               avatar={<Avatar alt="john doe" src={profile} />}
               title="Jane Doe"
               subheader="Property Manager"

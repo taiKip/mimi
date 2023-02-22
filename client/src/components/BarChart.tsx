@@ -10,6 +10,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import {  } from "@mui/system";
+import { createTheme, Typography,Box } from "@mui/material";
+import { Info } from "@mui/icons-material";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,39 +22,48 @@ ChartJS.register(
   Legend
 );
 
-const labels = ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"]
 
 
-export const options = {
-  responsive: true,
-  maintainAspectRatio:false,
-  plugins: {
-    legend: {
-      position: "top" as const,
+
+
+
+export interface barChartProps{
+  barData: number[],
+  label: string,
+  labels: string[],
+ aspectRatio?:boolean
+}
+const BarChart = ({ barData, label, labels,aspectRatio}: barChartProps) => {
+  const theme = createTheme();
+  const options = {
+    responsive: true,
+    maintainAspectRatio: aspectRatio||false,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: false,
+      },
     },
-    title: {
-      display: false,
-      text: "Average Complaint",
-    },
-   
-  },
-
-};
-const data = {
+  };
+  const data = {
   labels,
   datasets: [
     {
-      label: "Complains",
-      data: [15, 13, 23, 15, 22, 16, 7],
-      backgroundColor: "purple",
+      label: label,
+      data: barData,
+      backgroundColor:"purple"
     },
   ],
 };
-
-const BarChart = () => {
- 
   
-  return <Bar data={data} options={options} />;
+  return (
+    
+      <Bar data={data} options={options} />
+  
+  );
+ 
 };
 
 export default BarChart;
