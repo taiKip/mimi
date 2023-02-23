@@ -9,6 +9,7 @@ export interface tableRowProps {
   repairRequest: string;
   complaintId: number;
   severity: string;
+  status:"fixed"|"pending"
 }
 const EnhancedTableRow = ({
   firstName,

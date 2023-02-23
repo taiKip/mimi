@@ -21,7 +21,7 @@ const EnhancedTableHead = () => {
       flexDirection="row"
       alignItems={"center"}
       padding={2}
-      gap={2}
+      justifyContent={"space-between"}
     >
       <Stack>
         <CardHeader

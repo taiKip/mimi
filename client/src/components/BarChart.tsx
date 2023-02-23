@@ -1,6 +1,5 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { useTheme } from "@mui/material/styles";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,8 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import {  } from "@mui/system";
-import { createTheme, Typography,Box } from "@mui/material";
-import { Info } from "@mui/icons-material";
+import { createTheme} from "@mui/material";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
