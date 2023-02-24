@@ -148,6 +148,7 @@ const Dashboard = () => {
         </Stack>
       </Box>
       <Box display={"flex"} marginTop={3} gap={3} marginBottom={3}>
+        {/**@desc approved repair requests */}
         <Card sx={{ flexGrow: 3 }}>
           <EnhancedTable />
         </Card>

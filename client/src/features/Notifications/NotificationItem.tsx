@@ -17,15 +17,20 @@ const NotificationItem = ({
   let content;
 
   if (status === 'fixed') {
-    content = <Typography component={"span"}>
-          {`Marked an issue  on ${firstName}'s Apartment.Comfy Aparment.Room-317 as `}
-          <Box component={"span"} color={"green"}>fixed</Box></Typography>
+    content = (
+      <Box component={"span"}>
+        {`Marked an issue  on ${firstName}'s Apartment.Comfy Aparment.Room-317 as `}
+        <Box component={"span"} color={"#81c784"}>
+          fixed
+        </Box>
+      </Box>
+    );
   } else if (status === "pending" && severity==="emergency") {
-    content =<Typography component={"span"}>
+    content =<Box component={"span"}>
         {`Reported `} 
         <Box component={"span"} color="red">Emergency</Box>
          { ` for ${firstName}'s Apartment.Comfy Aparment.Room-317  `}
-      </Typography>
+      </Box>
   } else {
     content =<Typography>{`${firstName} reported an issue.`}</Typography>
   }
