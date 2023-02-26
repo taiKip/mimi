@@ -98,7 +98,7 @@ const Dashboard = () => {
             </Select>
           </FormControl>
         </Stack>
-        <Stack direction="row" spacing={2} marginLeft={"auto"}>
+        <Stack direction="row" spacing={2} marginLeft={"auto"} >
           <Button
             variant={theme.palette.mode === "dark" ? "contained" : "outlined"}
             startIcon={<Upload />}
@@ -147,26 +147,21 @@ const Dashboard = () => {
           ))}
         </Stack>
       </Box>
-      <Box display={"flex"} marginTop={3} gap={3} marginBottom={3}>
+      <Stack marginTop={3} direction="row" spacing={3} marginBottom={3} >
         {/**@desc approved repair requests */}
-        <Card sx={{ flexGrow: 3 }}>
+        <Card sx={{ flex: 2 }}>
           <EnhancedTable />
         </Card>
-        <Card sx={{ flexGrow: 1 }}>
+        <Card sx={{ flex: 0.96, padding: 0 }}>
           <CardHeader
             title="Avg. Complaint"
             subheader="Average complaint from residents"
           />
-          <CardContent sx={{height:"70%"}}>
-            <BarChart
-              label="Complaint"
-              labels={labels}
-              barData={data}
-          
-            />
+          <CardContent sx={{ height: "70%" }}>
+            <BarChart label="Complaint" labels={labels} barData={data} />
           </CardContent>
         </Card>
-      </Box>
+      </Stack>
     </Box>
   );
 };

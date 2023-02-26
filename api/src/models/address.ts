@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/models/user';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("address_tbl")
+@Entity()
 export class Address{
     @PrimaryGeneratedColumn()
     id!: string
@@ -17,4 +18,6 @@ export class Address{
     @Column()
     country!: string;
 
+    @OneToOne(() => User, user => user.address)
+    user!: User;
 }

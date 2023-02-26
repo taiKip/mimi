@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("vendorpartner")
-export class VendorPartner{
+@Entity("vendor")
+export class Vendor{
     @PrimaryGeneratedColumn()
     id!: number
 

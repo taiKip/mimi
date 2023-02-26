@@ -9,7 +9,7 @@ export enum severityEnum {
   NORMAL = "normal",
 }
 
-export class Complaint {
+export class Maintenance {
   @PrimaryGeneratedColumn()
   id!: number;
 
