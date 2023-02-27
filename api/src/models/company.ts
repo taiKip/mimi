@@ -1,8 +1,9 @@
 
-import { Column, CreateDateColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn ,Entity} from "typeorm";
 import { Property } from "./property";
 import { User } from "./user";
 
+@Entity()
 export class Company {
   @PrimaryGeneratedColumn()
   id!: number;

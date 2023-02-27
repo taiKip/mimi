@@ -1,6 +1,7 @@
 import { Unit } from "./unit";
 import {
   Column,
+  Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -10,6 +11,7 @@ import {
 import { Address } from "./address";
 import { Company } from "./company";
 
+@Entity()
 export class Property {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -17,13 +19,13 @@ export class Property {
   @Column({ nullable: true })
   name!: string;
 
-  @ManyToOne((type) => Company, (company: Company) => company.properties)
+  @ManyToOne((type) => Company, (company: Company) => company.properties,{nullable:true})
   @JoinColumn()
   company!: Company;
-  @OneToOne((type) => Address)
+  @OneToOne((type) => Address,{nullable:true})
   @JoinColumn()
   address!: Address;
 
-  @OneToMany((type) => Unit, (unit: Unit) => unit.property)
+  @OneToMany((type) => Unit, (unit: Unit) => unit.property,{nullable:true})
   units!: Array<Unit>;
 }

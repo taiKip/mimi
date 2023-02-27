@@ -3,13 +3,18 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  Entity,
 } from "typeorm";
+import { Unit } from "./unit";
 export enum severityEnum {
   EMERGENCY = "emergency",
   NORMAL = "normal",
 }
 
-export class Maintenance {
+@Entity()
+export class MaintenanceRequest {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -25,6 +30,10 @@ export class Maintenance {
 
   @Column({ default: false, name: "isfixed" })
   isFixed!: boolean;
+
+  @ManyToOne((type) => Unit, (unit: Unit) => unit.maintenanceRequests)
+  @JoinColumn()
+  unit!: Unit;
 
   @CreateDateColumn()
   createdAt!: Date;

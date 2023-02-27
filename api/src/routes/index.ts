@@ -1,5 +1,6 @@
-import express,{Request, Response} from 'express';
-import PingController from '../controllers/ping';
+import express, { Request, Response } from "express";
+import UserRouter from "./user.router";
+import PropertyRouter from "./property.router";
 
 const router = express.Router();
 
@@ -8,10 +9,8 @@ const router = express.Router();
  @route GET /notes
  @access Private
  */
-router.get("/ping", async (req: Request, res: Response) => {
-    const controller = new PingController();
-    const response = await controller.getMessage();
-    return res.send(response);
-})
+
+router.use("/api/v1/users", UserRouter);
+router.use("/api/v1/properties", PropertyRouter);
 
 export default router;

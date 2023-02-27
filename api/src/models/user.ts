@@ -6,12 +6,11 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  OneToMany,
   ManyToOne,
 } from "typeorm";
 import { Address } from "./address";
 import { Company } from "./company";
-import { Role } from "./Role";
+
 
 @Entity()
 export class User {
@@ -31,10 +30,12 @@ export class User {
   @JoinColumn()
   address!: Address;
 
-  @OneToMany((type) => Role, (role: Role) => role.user)
-  roles!: Array<Role>;
+ 
+  @Column({ default: false })
+    isAdmin!:boolean
 
   @ManyToOne((type) => Company, (company: Company) => company.users)
+  @JoinColumn()
   company!: Company;
 
   @CreateDateColumn()

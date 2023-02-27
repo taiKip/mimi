@@ -1,9 +1,9 @@
+import { Unit } from './unit';
 import { User } from "./user";
 import { Company } from "./company";
 import { Address } from "./address";
-import { Maintenance } from "./maintenance";
+import { MaintenanceRequest } from "./maintenanceRequest";
 import { Vendor } from "./vendor";
 import { Property } from "./property";
-import { Role } from "./Role";
 
-export {User,Company,Address,Maintenance,Vendor,Property,Role}
+export { User, Company, Address, MaintenanceRequest, Vendor, Property ,Unit};
