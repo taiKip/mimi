@@ -8,6 +8,7 @@ import {
   Entity,
 } from "typeorm";
 import { Unit } from "./unit";
+import { User } from "./user";
 export enum severityEnum {
   EMERGENCY = "emergency",
   NORMAL = "normal",
@@ -34,6 +35,10 @@ export class MaintenanceRequest {
   @ManyToOne((type) => Unit, (unit: Unit) => unit.maintenanceRequests)
   @JoinColumn()
   unit!: Unit;
+
+  @ManyToOne((type) => Unit, (user: User) => user.maintenanceRequests)
+  @JoinColumn()
+  user!: User;
 
   @CreateDateColumn()
   createdAt!: Date;

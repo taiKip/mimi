@@ -1,7 +1,9 @@
 import dataSource from "../config/datasource";
-import { Property } from "../models";
+import { Property, Unit } from "../models";
+import { createUnit, IUnitPayload } from "./unit.repository";
 
-const propPropertyRepository = dataSource.getRepository(Property);
+const propertyRepository = dataSource.getRepository(Property);
+const unitRepository = dataSource.getRepository(Unit);
 export interface IPropertyPayload {
   name: string;
   lastName: string;
@@ -9,15 +11,26 @@ export interface IPropertyPayload {
 }
 
 export const createProperty = async (payload: IPropertyPayload): Promise<Property> => {
-  const propProperty = new Property();
-  return propPropertyRepository.save({
-    ...propProperty,
+  const property = new Property();
+  return propertyRepository.save({
+    ...property,
     ...payload,
   });
 };
 
+export const createPropertyUnit = async (id: number, payload: IUnitPayload): Promise<Property|string> => {
+  const property = await propertyRepository.findOneBy({ id: id });
+  if (!property) return "Property not found";
+
+   await unitRepository.save({
+    ...payload,
+    property
+  })
+  
+  return property;
+}
 export const getProperties = async (): Promise<Array<Property>> => {
-  return propPropertyRepository.find({
+  return propertyRepository.find({
     relations: {
       company: true,
       address: true,
@@ -27,13 +40,13 @@ export const getProperties = async (): Promise<Array<Property>> => {
 };
 
 export const getProperty = async (id: number): Promise<Property | null> => {
-  const propProperty = await propPropertyRepository.findOneBy({ id: id });
-  if (!propProperty) return null;
-  return propProperty;
+  const property = await propertyRepository.findOneBy({ id: id });
+  if (!property) return null;
+  return property;
 };
 
 export const deleteProperty = async (id: number): Promise<string> => {
-  const propProperty = await propPropertyRepository.delete({ id: id });
-  if (!propProperty) return "Property not found";
+  const property = await propertyRepository.delete({ id: id });
+  if (!property) return "Property not found";
   return `${id} deleted`;
 };

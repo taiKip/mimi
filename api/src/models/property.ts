@@ -1,5 +1,6 @@
 import { Unit } from "./unit";
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -12,7 +13,7 @@ import { Address } from "./address";
 import { Company } from "./company";
 
 @Entity()
-export class Property {
+export class Property extends BaseEntity{
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -22,6 +23,7 @@ export class Property {
   @ManyToOne((type) => Company, (company: Company) => company.properties,{nullable:true})
   @JoinColumn()
   company!: Company;
+  
   @OneToOne((type) => Address,{nullable:true})
   @JoinColumn()
   address!: Address;

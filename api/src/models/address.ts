@@ -1,23 +1,27 @@
 import { User } from'./user';
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Company } from './company';
 
 @Entity()
-export class Address{
-    @PrimaryGeneratedColumn()
-    id!: string
-    
-    @Column()
-    streetAddress!: string;
+export class Address {
+  @PrimaryGeneratedColumn()
+  id!: string;
 
-    @Column()
-    city!: string;
+  @Column()
+  streetAddress!: string;
 
-    @Column()
-    zipCode!: string;
+  @Column()
+  city!: string;
 
-    @Column()
-    country!: string;
+  @Column()
+  zipCode!: string;
 
-    @OneToOne(() => User, user => user.address)
-    user!: User;
+  @Column()
+  country!: string;
+
+  @OneToOne(() => User, (user) => user.address)
+  user!: User;
+
+  @OneToOne(() => Company, (company) => company.address)
+  company!: Company;
 }
