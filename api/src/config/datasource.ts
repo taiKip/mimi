@@ -1,10 +1,8 @@
 import { DataSource } from "typeorm";
 import {
   User,
-  Company,
   Address,
   MaintenanceRequest,
-  Vendor,
   Property,
   Unit,
 } from "../models";
@@ -18,14 +16,16 @@ const dataSource = new DataSource({
   database: process.env.POSTGRES_DB || "postgres",
   entities: [
     User,
-    Company,
     Address,
     MaintenanceRequest,
-    Vendor,
     Property,
     Unit,
   ],
   synchronize: true,
 });
 
+export const unitRepository = dataSource.getRepository(Unit)
+export const addressRepository = dataSource.getRepository(Address);
+export const maintenanceRepository = dataSource.getRepository(MaintenanceRequest);
+export const userRepository = dataSource.getRepository(User);
 export default dataSource;

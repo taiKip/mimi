@@ -32,6 +32,8 @@ export class MaintenanceRequest {
   @Column({ default: false, name: "isfixed" })
   isFixed!: boolean;
 
+  @Column({default:false,nullable:true})
+  isApproved!: boolean;
   @ManyToOne((type) => Unit, (unit: Unit) => unit.maintenanceRequests)
   @JoinColumn()
   unit!: Unit;
@@ -45,4 +47,9 @@ export class MaintenanceRequest {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+}
+
+export interface IMaintenancePayload{
+  message: string,
+  severity: severityEnum,
 }

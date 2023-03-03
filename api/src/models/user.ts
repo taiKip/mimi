@@ -10,7 +10,6 @@ import {
   ManyToOne,
 } from "typeorm";
 import { Address } from "./address";
-import { Company } from "./company";
 import { Unit } from "./unit";
 import { MaintenanceRequest } from "./maintenanceRequest";
 
@@ -30,24 +29,21 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
-  @OneToOne(() => Address)
+  @OneToOne(() => Address,{nullable:true})
   @JoinColumn()
   address!: Address;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @OneToOne(() => User,{nullable:true})
+    @JoinColumn()
   unit!: Unit;
 
   @Column({ default: false })
   isAdmin!: boolean;
 
-  @ManyToOne((type) => Company, (company: Company) => company.users)
-  @JoinColumn()
-  company!: Company;
-
   @OneToMany(
     (type) => MaintenanceRequest,
-    (maintenanceRequest) => maintenanceRequest.user
+    (maintenanceRequest) => maintenanceRequest.user,
+    {nullable:true}
   )
   maintenanceRequests!: Array<MaintenanceRequest>;
 

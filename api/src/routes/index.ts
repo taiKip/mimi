@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import UserRouter from "./user.router";
 import PropertyRouter from "./property.router";
-import CompanyRouter from './company.router'
+import UnitRouter from './unit.router'
 
 const router = express.Router();
 
@@ -13,6 +13,6 @@ const router = express.Router();
 
 router.use("/api/v1/users", UserRouter);
 router.use("/api/v1/properties", PropertyRouter);
-router.use("/api/v1/companies",CompanyRouter)
+router.use("/api/v1/units",UnitRouter)
 
 export default router;

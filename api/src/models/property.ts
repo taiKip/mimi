@@ -1,6 +1,5 @@
 import { Unit } from "./unit";
 import {
-  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -10,20 +9,15 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Address } from "./address";
-import { Company } from "./company";
 
 @Entity()
-export class Property extends BaseEntity{
+export class Property {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column({ nullable: true })
   name!: string;
 
-  @ManyToOne((type) => Company, (company: Company) => company.properties,{nullable:true})
-  @JoinColumn()
-  company!: Company;
-  
   @OneToOne((type) => Address,{nullable:true})
   @JoinColumn()
   address!: Address;

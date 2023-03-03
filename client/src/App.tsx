@@ -1,27 +1,33 @@
-
 import { ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import Dashboard from "./components/DashBoard";
-import { createContext, useEffect, useMemo, useState,MouseEvent } from "react";
+import { createContext, useEffect, useMemo, useState, MouseEvent } from "react";
+import PropertiesList from "./features/Properties/PropertiesList";
+import { Container } from "@mui/system";
+import SingleProperty from "./features/Properties/SingleProperty";
 
-export const ThemeContext = createContext({ toggleColorMode: () => { } });
+export const ThemeContext = createContext({ toggleColorMode: () => {} });
 /**@desc share context notification context. notifications can be opened from header component */
-export const NotificationContext = createContext<{anchorEl:null|HTMLElement,handleNotifications:(event:MouseEvent<HTMLElement>)=>void,handleClose:()=>void}>({
+export const NotificationContext = createContext<{
+  anchorEl: null | HTMLElement;
+  handleNotifications: (event: MouseEvent<HTMLElement>) => void;
+  handleClose: () => void;
+}>({
   anchorEl: null,
-  handleNotifications:(event:MouseEvent<HTMLElement>)=>{},
-  handleClose:()=>{}
+  handleNotifications: (event: MouseEvent<HTMLElement>) => {},
+  handleClose: () => {},
 });
-const App=()=> {
+const App = () => {
   const [mode, setMode] = useState<"dark" | "light">(() => {
     const localData = localStorage.getItem("theme");
     return localData ? JSON.parse(localData) : "light";
   });
 
-  const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(mode));
   }, [mode]);
@@ -60,14 +66,11 @@ const App=()=> {
   );
 
   const handleNotifications = (event: MouseEvent<HTMLElement>) => {
-   
-    setAnchorEl(event.currentTarget)
-
-   
-  }
+    setAnchorEl(event.currentTarget);
+  };
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
   return (
     <ThemeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -84,6 +87,35 @@ const App=()=> {
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Dashboard />} />
+
+                <Route path="properties">
+                  <Route index element={<PropertiesList />} />
+                  <Route
+                    path=":propertyId"
+                    element={<SingleProperty/>}
+                  />
+                </Route>
+                <Route path="people">
+                  <Route index element={<PropertiesList />} />
+                  <Route
+                    path=":propertyId"
+                    element={<div>Single property</div>}
+                  />
+                </Route>
+                <Route path="maintenance">
+                  <Route index element={<PropertiesList />} />
+                  <Route
+                    path=":propertyId"
+                    element={<div>Single property</div>}
+                  />
+                </Route>
+                <Route path="invoices">
+                  <Route index element={<div>Invoices</div>} />
+                  <Route
+                    path=":propertyId"
+                    element={<SingleProperty/>}
+                  />
+                </Route>
               </Route>
             </Routes>
           </main>
@@ -91,6 +123,6 @@ const App=()=> {
       </ThemeProvider>
     </ThemeContext.Provider>
   );
-}
+};
 
 export default App;

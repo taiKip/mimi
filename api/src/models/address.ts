@@ -1,6 +1,6 @@
-import { User } from'./user';
+import { User } from "./user";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Company } from './company';
+import { Property } from "./property";
 
 @Entity()
 export class Address {
@@ -19,9 +19,20 @@ export class Address {
   @Column()
   country!: string;
 
+  @Column({nullable:true})
+  unitNumber!: string;
   @OneToOne(() => User, (user) => user.address)
   user!: User;
 
-  @OneToOne(() => Company, (company) => company.address)
-  company!: Company;
+  @OneToOne(() =>Property, (property) => property.address)
+  property!: Property;
+}
+
+
+export interface IAddressPayload{
+    streetAddress: string,
+    city: string,
+    zipCode: string,
+    country: string,
+    unitNumber?:string
 }

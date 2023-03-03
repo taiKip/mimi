@@ -1,4 +1,5 @@
-import dataSource from "../config/datasource";
+import { IAddressPayload } from "src/models/address";
+import dataSource, { addressRepository } from "../config/datasource";
 import { Property, Unit } from "../models";
 import { createUnit, IUnitPayload } from "./unit.repository";
 
@@ -29,10 +30,24 @@ export const createPropertyUnit = async (id: number, payload: IUnitPayload): Pro
   
   return property;
 }
+
+export const createPropertyAddress = async (
+  id: number,
+  payload: IAddressPayload
+): Promise<Property | string> => {
+  const property = await propertyRepository.findOneBy({ id: id });
+  if (!property) return "Property not found";
+
+  await addressRepository.save({
+    ...payload,
+    property
+ })
+
+  return property;
+};
 export const getProperties = async (): Promise<Array<Property>> => {
   return propertyRepository.find({
     relations: {
-      company: true,
       address: true,
       units:true
     }

@@ -15,13 +15,13 @@ export class Unit {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ name: "number" })
+  @Column({ name: "number", unique: true })
   unitNumber!: string;
 
   @Column({ default: false })
   isTaken!: boolean;
 
-  @OneToOne((type) => User, { nullable: true })
+  @OneToOne((type) => User,(user)=>user.unit)
   user!: User;
 
   @ManyToOne((type) => Property, (property) => property.units)

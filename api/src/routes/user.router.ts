@@ -13,6 +13,17 @@ router.post("/", async (req: Request, res: Response) => {
     return res.send(response);
 })
 
+router.put("/:id/maintenance", async (req: Request, res: Response) => {
+  const response = await controller.createMaintenanceRequest(req.params.id,req.body)
+  return res.send(response);
+});
+router.put("/:id/assignunit", async (req: Request, res: Response) => {
+  const response = await controller.createMaintenanceRequest(
+    req.params.id,
+    req.body
+  );
+  return res.send(response);
+});
 router.get("/:id", async (req: Request, res: Response) => {
     const response = await controller.getUser(req.params.id);
     if (!response) res.status(404).send({ message: "User not found" });

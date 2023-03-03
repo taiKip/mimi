@@ -23,7 +23,8 @@ import { useTheme } from "@mui/material/styles";
 import { NotificationContext, ThemeContext } from "../App";
 import { useState, MouseEvent } from "react";
 import NotificationsList from "../features/Notifications/NotificationsList";
-const navItems = ["Maintanance", "People", "Properties", "Invoices"];
+import { Link } from "react-router-dom";
+const navItems = ["maintenance", "people", "properties", "invoices"];
 
 const Header = () => {
   const colorMode = useContext(ThemeContext);
@@ -43,12 +44,15 @@ const Header = () => {
           paddingBottom: 0,
         }}
       >
-        <House sx={{ mr: 5 }} />
+        <Link to="/">
+          <House sx={{ mr: 5 }} />
+        </Link>
+
         <Box sx={{ display: { xs: "none", sm: "block", flexGrow: 1 } }}>
           {navItems.map((item) => (
-            <Button key={item} color="inherit">
-              {item}
-            </Button>
+            <Link to={item} key={item}>
+              <Button color="inherit">{item}</Button>
+            </Link>
           ))}
         </Box>
         <Box>
@@ -74,8 +78,8 @@ const Header = () => {
             <Badge badgeContent={3} color={"secondary"}>
               <NotificationsOutlined />
             </Badge>
-                  </IconButton>
-                  <NotificationsList/>
+          </IconButton>
+          <NotificationsList />
           <IconButton color="inherit" onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === "light" ? (
               <DarkModeOutlined />
