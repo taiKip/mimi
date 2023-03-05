@@ -15,7 +15,7 @@ export class Property {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true  })
   name!: string;
 
   @OneToOne((type) => Address,{nullable:true})

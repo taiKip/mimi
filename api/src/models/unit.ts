@@ -21,7 +21,13 @@ export class Unit {
   @Column({ default: false })
   isTaken!: boolean;
 
-  @OneToOne((type) => User,(user)=>user.unit)
+  @Column({ nullable: true })
+  rooms!: number;
+
+  @Column({ nullable: true })
+  size!: number;
+
+  @OneToOne((type) => User, (user) => user.unit)
   user!: User;
 
   @ManyToOne((type) => Property, (property) => property.units)
@@ -30,7 +36,8 @@ export class Unit {
 
   @OneToMany(
     (type) => MaintenanceRequest,
-    (maintenanceRequest) => maintenanceRequest.unit
+    (maintenanceRequest) => maintenanceRequest.unit,
+    {nullable:true}
   )
   maintenanceRequests!: Array<MaintenanceRequest>;
 }

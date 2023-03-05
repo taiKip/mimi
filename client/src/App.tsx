@@ -9,6 +9,7 @@ import { createContext, useEffect, useMemo, useState, MouseEvent } from "react";
 import PropertiesList from "./features/Properties/PropertiesList";
 import { Container } from "@mui/system";
 import SingleProperty from "./features/Properties/SingleProperty";
+import AddPropertyForm from "./features/Properties/AddPropertyForm";
 
 export const ThemeContext = createContext({ toggleColorMode: () => {} });
 /**@desc share context notification context. notifications can be opened from header component */
@@ -94,6 +95,7 @@ const App = () => {
                     path=":propertyId"
                     element={<SingleProperty/>}
                   />
+                  <Route path="create" element={<AddPropertyForm />} />
                 </Route>
                 <Route path="people">
                   <Route index element={<PropertiesList />} />

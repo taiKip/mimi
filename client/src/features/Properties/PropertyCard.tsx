@@ -1,11 +1,11 @@
 import { Avatar, CardHeader, Card, CardMedia, IconButton } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { propertyType } from "../../types";
 import building from "../../assets/building.jpg";
 import { ArrowForward } from "@mui/icons-material";
 const PropertyCard = ({ name, id ,address}: Partial<propertyType>) => {
   return (
-    <Card sx={{ width:365 }} component="div">
+    <Card sx={{ minWidth:340 }} component="div">
       <CardHeader
         avatar={<Avatar>{name?.charAt(0)}</Avatar>}
               title={name}

@@ -5,7 +5,7 @@ import { Property } from "./property";
 @Entity()
 export class Address {
   @PrimaryGeneratedColumn()
-  id!: string;
+  id!: number;
 
   @Column()
   streetAddress!: string;

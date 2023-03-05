@@ -1,4 +1,3 @@
-import { createEntityAdapter } from "@reduxjs/toolkit";
 import { propertyType } from "../../types";
 import { apiSlice } from "../api/apiSlice";
 
@@ -13,7 +12,17 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         ),
         getPropertyById: builder.query({
           query:id=>`/properties/${id}`
-      })
+        }),
+        addNewProperty: builder.mutation({
+            query: (property: Partial<propertyType>) => ({
+                url: '/properties',
+                method: 'POST',
+                body: {
+                    ...property
+                }
+            }),
+            invalidatesTags:['Property']
+        })
   }),
 });
 

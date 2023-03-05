@@ -34,11 +34,11 @@ export class MaintenanceRequest {
 
   @Column({default:false,nullable:true})
   isApproved!: boolean;
-  @ManyToOne((type) => Unit, (unit: Unit) => unit.maintenanceRequests)
+  @ManyToOne((type) => Unit, (unit: Unit) => unit.maintenanceRequests,{nullable:true})
   @JoinColumn()
   unit!: Unit;
 
-  @ManyToOne((type) => Unit, (user: User) => user.maintenanceRequests)
+  @ManyToOne((type) => Unit, (user: User) => user.maintenanceRequests,{nullable:true})
   @JoinColumn()
   user!: User;
 

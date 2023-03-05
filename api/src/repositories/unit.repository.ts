@@ -10,7 +10,9 @@ const maintenanceRequestRepository = dataSource.getRepository(MaintenanceRequest
 const userRepository = dataSource.getRepository(User)
 export interface IUnitPayload {
     unitNumber: string,
-    isTaken?: boolean,
+  isTaken?: boolean,
+  size: number,
+    rooms:number
 }
 
 export const createUnit = async (

@@ -10,7 +10,9 @@ export type addressType = {
 export type unitType = {
   id: number;
   unitNumber: string;
-  isTaken: boolean;
+    isTaken: boolean;
+    size: number;
+    rooms:number
 };
 
 export type userType = {

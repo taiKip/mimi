@@ -10,6 +10,7 @@ import { extendedApiSlice } from './features/Properties/propertiesSlice';
 
 
 store.dispatch(extendedApiSlice.endpoints.getProperties.initiate())
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
