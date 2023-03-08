@@ -10,6 +10,7 @@ import PropertiesList from "./features/Properties/PropertiesList";
 import { Container } from "@mui/system";
 import SingleProperty from "./features/Properties/SingleProperty";
 import AddPropertyForm from "./features/Properties/AddPropertyForm";
+import Home from "./components/Home";
 
 export const ThemeContext = createContext({ toggleColorMode: () => {} });
 /**@desc share context notification context. notifications can be opened from header component */
@@ -86,39 +87,34 @@ const App = () => {
             }}
           >
             <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Dashboard />} />
+              <Route path="/"  element={<Home />}/>
+                <Route path="/dash" element={<Layout />}>
+                  <Route index element={<Dashboard />} />
 
-                <Route path="properties">
-                  <Route index element={<PropertiesList />} />
-                  <Route
-                    path=":propertyId"
-                    element={<SingleProperty/>}
-                  />
-                  <Route path="create" element={<AddPropertyForm />} />
+                  <Route path="properties">
+                    <Route index element={<PropertiesList />} />
+                    <Route path=":propertyId" element={<SingleProperty />} />
+                    <Route path="create" element={<AddPropertyForm />} />
+                  </Route>
+                  <Route path="people">
+                    <Route index element={<PropertiesList />} />
+                    <Route
+                      path=":propertyId"
+                      element={<div>Single property</div>}
+                    />
+                  </Route>
+                  <Route path="maintenance">
+                    <Route index element={<PropertiesList />} />
+                    <Route
+                      path=":propertyId"
+                      element={<div>Single property</div>}
+                    />
+                  </Route>
+                  <Route path="invoices">
+                    <Route index element={<div>Invoices</div>} />
+                    <Route path=":propertyId" element={<SingleProperty />} />
+                  </Route>
                 </Route>
-                <Route path="people">
-                  <Route index element={<PropertiesList />} />
-                  <Route
-                    path=":propertyId"
-                    element={<div>Single property</div>}
-                  />
-                </Route>
-                <Route path="maintenance">
-                  <Route index element={<PropertiesList />} />
-                  <Route
-                    path=":propertyId"
-                    element={<div>Single property</div>}
-                  />
-                </Route>
-                <Route path="invoices">
-                  <Route index element={<div>Invoices</div>} />
-                  <Route
-                    path=":propertyId"
-                    element={<SingleProperty/>}
-                  />
-                </Route>
-              </Route>
             </Routes>
           </main>
         </NotificationContext.Provider>

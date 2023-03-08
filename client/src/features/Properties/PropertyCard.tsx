@@ -11,7 +11,7 @@ const PropertyCard = ({ name, id ,address}: Partial<propertyType>) => {
               title={name}
               subheader={`A high rise property located in ${address?.city}`}
         action={
-          <NavLink to={`/properties/${id}`}>
+          <NavLink to={`/dash/properties/${id}`}>
             <IconButton>
               <ArrowForward />
             </IconButton>

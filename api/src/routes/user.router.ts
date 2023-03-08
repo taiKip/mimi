@@ -1,15 +1,34 @@
+import { userRepository } from './../config/datasource';
 import express, { NextFunction, Request, Response } from 'express'
 import UserController from '../controllers/user.controller'
-
+import bcrypt from 'bcrypt'
 const router = express.Router();
 const controller = new UserController()
 router.get("/", async (req: Request, res: Response) => {
+  
     const response = await controller.getUsers();
     return res.send(response)
 })
 
 router.post("/", async (req: Request, res: Response) => {
-    const response = await controller.createUser(req.body);
+  const { firstName, lastName, password, email } = req.body;
+  if (!firstName || !password || !lastName || !email) {
+    return res.status(400).json({message:"All fields are required"})
+  }
+  const duplicate = await userRepository.findOne({
+    where: {
+    email:email
+    }
+  })
+  if (duplicate) {
+    return res.status(409).json({message:'Duplicate email'})
+  }
+
+  //Hash password
+  const hashedPwd = await (bcrypt.hash(password, 10))
+  
+  const userObj = {firstName,lastName,password:hashedPwd,email}
+    const response = await controller.createUser(userObj);
     return res.send(response);
 })
 

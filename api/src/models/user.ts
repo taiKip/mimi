@@ -29,6 +29,8 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
+  @Column()
+  password!:string
   @OneToOne(() => Address,{nullable:true})
   @JoinColumn()
   address!: Address;
@@ -37,6 +39,7 @@ export class User {
     @JoinColumn()
   unit!: Unit;
 
+ 
   @Column({ default: false })
   isAdmin!: boolean;
 
@@ -52,4 +55,9 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+}
+
+export interface IloginDetails {
+  password: string;
+  email: string;
 }

@@ -3,6 +3,7 @@ import UserRouter from "./user.router";
 import PropertyRouter from "./property.router";
 import UnitRouter from './unit.router'
 import AddressRouter from './address.router'
+import AuthRouter from './auth.router'
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ const router = express.Router();
  @route GET /notes
  @access Private
  */
-
+router.use("/api/v1/auth",AuthRouter)
 router.use("/api/v1/users", UserRouter);
 router.use("/api/v1/properties", PropertyRouter);
 router.use("/api/v1/units", UnitRouter)

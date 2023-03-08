@@ -44,7 +44,7 @@ const Header = () => {
           paddingBottom: 0,
         }}
       >
-        <Link to="/">
+        <Link to="/dash">
           <House sx={{ mr: 5 }} />
         </Link>
 
